@@ -108,6 +108,7 @@ public class PostDao {
         }
         return null;
     }
+    @Transactional
     public Post getPost(long postID){
         try {
             return manager.find(Post.class, postID);

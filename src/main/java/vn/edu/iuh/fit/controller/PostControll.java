@@ -77,11 +77,17 @@ public class PostControll {
     public String addPost(@ModelAttribute PostForm postForm) {
         long uid=Long.parseLong(postForm.getUid());
         long postID=Long.parseLong(postForm.getPostID());
-        long parentID=Long.parseLong(postForm.getParentID());
         int published=Integer.parseInt(postForm.getPublished());
-        postDao.addPost(new Post(postID, new Post(parentID), new User(uid), postForm.getTitle(), postForm.getMetaTitle(), postForm.getSummary(), published, postForm.getContent()));
+
+        if(postForm.getParentID()!=null) {
+            long parentID = Long.parseLong(postForm.getParentID());
+            postDao.addPost(new Post(postID, new Post(parentID), new User(uid), postForm.getTitle(), postForm.getMetaTitle(), postForm.getSummary(), published, postForm.getContent()));
+        }else {
+            postDao.addPost(new Post(postID, new User(uid), postForm.getTitle(), postForm.getMetaTitle(), postForm.getSummary(), published, postForm.getContent()));
+        }
         return "redirect:/mypost/"+uid;
     }
+
     @GetMapping("/reply-post/{UID}/{postID}")
     public String showReplyPostForm(@PathVariable Long UID, @PathVariable Long postID, Model model) {
         model.addAttribute("UID", UID);

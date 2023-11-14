@@ -62,6 +62,7 @@ public class UserDao {
         }
         return false;
     }
+    @Transactional
     public User getUserByMobile(String mobile){
         User user=new User();
         try {

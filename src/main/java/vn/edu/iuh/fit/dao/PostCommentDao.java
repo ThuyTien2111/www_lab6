@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import vn.edu.iuh.fit.entity.PostComment;
 import vn.edu.iuh.fit.entity.User;
 
@@ -17,6 +18,7 @@ public class PostCommentDao {
     public PostCommentDao(EntityManager entityManager) {
         this.manager = entityManager;
     }
+    @Transactional
     public List<PostComment> getPostCommentByPostID(long postID){
         List<PostComment> list=new ArrayList<>();
         try {
